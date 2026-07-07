@@ -8,7 +8,9 @@ development.
 ## Install
 
 ```bash
-pixi global install pixi-stage        # provides the `pixi stage` subcommands
+git clone git@github.com:calcuttj/pixi-stage pixi-stage-src
+rattler-build build --recipe pixi-stage-src/recipe/recipe.yaml --output-dir pixi-stage-output
+pixi global install pixi-stage --channel file://$PWD/pixi-stage-output/ --channel conda-forge        # provides the `pixi stage` subcommands
 ```
 
 ## Use
