@@ -47,7 +47,7 @@ What `pixi stage add <package>` does:
 
 - **arch packages only** for source builds. A `noarch:` recipe is refused (a
   `pixi-build-rattler-build` backend bug fails noarch source builds — see the report the
-  refusal points at). Consume noarch/foundational packages from a channel instead.
+  refusal points at). Consume noarch/foundational packages from a channel instead. (I think this is actually a red herring. Investigating)
 - **`--src` must be under the workspace root** (a `path:` source makes rattler-build walk the
   common-ancestor tree; external paths can trip on unrelated symlink loops).
 
