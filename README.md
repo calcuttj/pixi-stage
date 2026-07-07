@@ -26,7 +26,7 @@ pixi install                          # builds it from your source
 pixi stage add dunecore
 
 # Reconcile the inter-package graph on demand (also runs automatically after add/rm):
-pixi stage wire
+pixi wire
 
 # Reverse it:
 pixi stage rm dune-justin
