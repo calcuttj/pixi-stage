@@ -54,6 +54,9 @@ def _do_add(args, ctx):
     # Validate --src up front (fail fast, before any mutation).
     src_abs = srcpath.resolve_under_workspace(args.src, root) if args.src else None
 
+    # The build backend only engages when the workspace opts into the preview feature.
+    root_manifest.ensure_preview(root / "pixi.toml", ctx)
+
     feedstock.obtain(package, member_dir, url, rev, ctx)
     recipe_path = feedstock.recipe_path_for(member_dir)
     data = feedstock.load_recipe(recipe_path)

@@ -33,6 +33,7 @@ pixi stage rm dune-justin
 ```
 
 What `pixi stage add <package>` does:
+0. Ensures the workspace opts into the build backend (`[workspace] preview = ["pixi-build"]`, added/appended if missing).
 1. Clones `conda-forge/<package>-feedstock` into the workspace as `<package>-feedstock/` (reused recipe).
 2. Bootstraps a member `pixi.toml` (backend + `extra-input-globs`).
 3. Injects a `dev_src` **build variant** switch into the recipe (idempotent) — the dev build

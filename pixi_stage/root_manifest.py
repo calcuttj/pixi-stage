@@ -17,6 +17,21 @@ def _ensure_table(parent, key):
     return parent[key]
 
 
+def ensure_preview(root_pixi, ctx, feature="pixi-build"):
+    """Ensure `[workspace] preview` contains the given feature (pixi-build)."""
+    path = Path(root_pixi)
+    doc = tomlkit.parse(path.read_text())
+    ws = _ensure_table(doc, "workspace")
+    preview = ws.get("preview")
+    if preview is None:
+        ws["preview"] = [feature]
+    elif feature in [str(x) for x in preview]:
+        return False
+    else:
+        preview.append(feature)
+    return ops.write_text(path, tomlkit.dumps(doc), ctx)
+
+
 def set_build_variant(root_pixi, var_name, abs_path, ctx):
     path = Path(root_pixi)
     doc = tomlkit.parse(path.read_text())
