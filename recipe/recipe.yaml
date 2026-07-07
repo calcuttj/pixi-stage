@@ -1,0 +1,45 @@
+# rattler-build recipe for the pixi-stage extension.
+# noarch: python is fine here — the tool is pure Python and distributed as a channel
+# package; the pixi-build noarch build bug only affects source-*built* workspace members.
+
+context:
+  version: "0.1.0"
+
+package:
+  name: pixi-stage
+  version: ${{ version }}
+
+source:
+  path: ..
+
+build:
+  noarch: python
+  script: build.sh
+
+requirements:
+  host:
+    - python >=3.8
+    - pip
+    - setuptools >=64
+  run:
+    - python >=3.8
+    - ruamel.yaml
+    - tomlkit
+    - git
+    - pixi
+    - rattler-build
+
+tests:
+  - script:
+      - pixi-stage --version
+      - pixi-stage --help
+
+about:
+  homepage: https://github.com/calcuttj/pixi-stage
+  summary: Stage conda packages into a pixi workspace as editable, source-built dependencies.
+  description: |
+    A pixi extension. `pixi stage <package> --src <dir>` clones the package's conda-forge
+    feedstock into the active workspace, reuses its recipe, injects a dev-source build #TBD: FIX THIS
+    variant, and wires the workspace so the package builds from your local checkout. The
+    inter-package build graph is reconciled automatically from the recipes.
+  license: BSD-3-Clause
